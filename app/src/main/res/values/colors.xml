@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="mapButtonBgColor">#66FDFCFC</color>
+    <color name="buttonBgColor">#B2FFFFFF</color>
+    <color name="layoutButtonStartColor">#EF32D9</color>
+    <color name="layoutButtonEndColor">#89FFFD</color>
+    <color name="circleButtonStartColor">#DD3E54</color>
+    <color name="circleButtonEndColor">#6BE585</color>
+    <color name="white">#FFFFFF</color>
+    <color name="trackStartColor">#AD5389</color>
+    <color name="trackEndColor">#3C1053</color>
 </resources>

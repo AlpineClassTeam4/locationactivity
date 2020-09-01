@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <stroke
+        android:width="1dip"
+        android:color="@color/buttonBgColor" />
+
+    <size
+        android:width="60dip"
+        android:height="60dip"/>
+
+    <gradient
+        android:startColor="@color/circleButtonStartColor"
+        android:endColor="@color/circleButtonEndColor"
+        android:angle="270"/>
+
+</shape>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/routeFragment">
+
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="com.qinwang.locationactivity.ui.track.fragment.RouteFragment"
+        android:label="route_fragment"
+        tools:layout="@layout/route_fragment" >
+        <action
+            android:id="@+id/action_routeFragment_to_trackFragment"
+            app:destination="@id/trackFragment"
+            app:enterAnim="@anim/silde_from_left"
+            app:launchSingleTop="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackFragment"
+        android:name="com.qinwang.locationactivity.ui.track.fragment.TrackFragment"
+        android:label="track_fragment"
+        tools:layout="@layout/track_fragment" >
+        <action
+            android:id="@+id/action_trackFragment_to_routeFragment"
+            app:destination="@id/routeFragment"
+            app:enterAnim="@anim/silde_from_right" />
+    </fragment>
+</navigation>

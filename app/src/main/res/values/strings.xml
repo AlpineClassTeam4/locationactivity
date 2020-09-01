@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">locationActivity</string>
+    <string name="navigation">导航</string>
+    <string name="car">定位</string>
+    <string name="menu">行程</string>
+    <string name="location_information">我的位置信息</string>
+    <string name="longitude">longitude</string>
+    <string name="latitude">latitude</string>
+    <string name="address">地址</string>
+    <string name="weather">天气</string>
+    <string name="car_location">车的位置信息</string>
+    <string name="to_car">车距离我</string>
+    <string name="start">起点</string>
+    <string name="end">终点</string>
 </resources>

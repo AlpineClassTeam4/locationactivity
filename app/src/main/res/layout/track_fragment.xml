@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.track.fragment.TrackFragment">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/track_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.baidu.mapapi.map.MapView>
+
+    <FrameLayout
+        android:id="@+id/framelayout_track"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:id="@+id/layout_track_mesaage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_track_bg"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.56">
+
+                <ImageView
+                    android:id="@+id/imageView_dowm_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_down" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:background="#000000" />
+
+                <LinearLayout
+                    android:id="@+id/layout_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="49dip"
+                        android:gravity="center"
+                        android:text="@string/start" />
+
+                    <View
+                        android:id="@+id/view6"
+                        android:layout_width="1dip"
+                        android:layout_height="49dip"
+                        android:background="#000000" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/track_start_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dip"
+                            android:gravity="fill_vertical"
+                            android:hint="例：朝阳区朝阳南大街朝外街道" />
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dip"
+                            android:background="#000000" />
+
+                        <TextView
+                            android:id="@+id/track_start_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dip"
+                            android:gravity="fill_vertical"
+                            android:hint="2020/08/28-20:27" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:background="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="49dip"
+                        android:gravity="center"
+                        android:text="@string/end" />
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="1dip"
+                        android:layout_height="49dip"
+                        android:background="#000000" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/track_end_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dip"
+                            android:gravity="fill_vertical"
+                            android:hint="例：朝阳区朝阳南大街朝外街道" />
+
+                        <View
+                            android:id="@+id/view4"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dip"
+                            android:background="#000000" />
+
+                        <TextView
+                            android:id="@+id/track_end_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dip"
+                            android:layout_gravity="end"
+                            android:gravity="fill_vertical"
+                            android:hint="2020/08/28-20:27" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#000000" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

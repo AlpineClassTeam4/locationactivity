@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <stroke
+        android:width="1dip"
+        android:color="@color/buttonBgColor" />
+
+    <size
+        android:width="200dip"
+        android:height="50dip"/>
+
+    <corners android:radius="50dip"/>
+
+    <gradient
+        android:startColor="@color/layoutButtonStartColor"
+        android:endColor="@color/layoutButtonEndColor"
+        android:angle="0"/>
+</shape>
