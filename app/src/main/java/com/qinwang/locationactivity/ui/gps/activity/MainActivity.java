@@ -191,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 //        // 设置个性化地图样式文件的路径和加载方式
 //        mMapView.setMapCustomStylePath(customStyleFilePath);
-        // 动态设置个性化地图样式是否生效
-        mMapView.setMapCustomStyleEnable(true);
+//        // 动态设置个性化地图样式是否生效
+//        mMapView.setMapCustomStyleEnable(true);
         //定义地图状态
         MapStatus mMapStatus = new MapStatus
                 .Builder()
@@ -433,6 +433,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.layout_car:
+                MapStatus mMapStatus = new MapStatus
+                        .Builder()
+                        .zoom(18)                                               //设置级别，放大地图到18倍
+                        .build();
+                //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                //改变地图状态
+                mBaiduMap.setMapStatus(mMapStatusUpdate);
+                mBaiduMap.setBuildingsEnabled(true);
                 if(endPt != new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude)){
                     mEndMarker.remove();
                     endPt = new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude);
@@ -441,7 +450,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     MarkerOptions option_car = new MarkerOptions()
                             .position(endPt)
                             .icon(bdEnd)
-                            .zIndex(9);
+                            .zIndex(5);
                     //在地图上添加Marker，并显示
                     mEndMarker = (Marker) mBaiduMap.addOverlay(option_car);
                     mEndMarker.setDraggable(true);
@@ -449,7 +458,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
                     mBaiduMap.animateMapStatus(u);
                 }
-
                 break;
             case R.id.layout_navigation:
                 walkParam.extraNaviMode(0);
