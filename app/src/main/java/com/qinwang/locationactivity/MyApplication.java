@@ -7,10 +7,12 @@ import android.util.Log;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * @Auther:haoyanwang1121@gmail.com
@@ -28,6 +30,8 @@ public class MyApplication extends Application {
     public static  String CUSTOM_FILE_NAME_HY = "custom_map_config_HY.sty";         //设置个性化地图的样式文件
     public static String customStyleFilePath;                                       //个性化地图的样式文件地址
     public static String uri = "http://wthrcdn.etouch.cn/weather_mini?city=";
+
+    public static String URI = "http://192.168.43.232/data/all";
     private static final String TAG = "MyApplication";
 
     @Override
@@ -81,5 +85,25 @@ public class MyApplication extends Application {
             }
         }
         return parentPath + "/" + customStyleFileName;
+    }
+
+    /***
+     * 处理http返回结果
+     * @param inputStream
+     * @return
+     */
+    public static String dealResponseResult(InputStream inputStream) {
+        StringBuilder html = new StringBuilder();      //存储处理结果
+        try {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"UTF-8");
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String s;
+            while ((s = reader.readLine()) != null) {
+                html.append(s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return html.toString();
     }
 }

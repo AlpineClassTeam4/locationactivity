@@ -57,7 +57,7 @@ public class WeatherMsg {
                     int response = connection.getResponseCode();
                     if(response == HttpURLConnection.HTTP_OK) {
                         InputStream inputStream = connection.getInputStream();
-                        String html = dealResponseResult(inputStream);
+                        String html = MyApplication.dealResponseResult(inputStream);
                         //处理服务器相应结果
                         Message msg = new Message();
                         msg.what = 1;
@@ -75,26 +75,6 @@ public class WeatherMsg {
                 }
             }
         }).start();
-    }
-
-    /***
-     * 处理http返回结果
-     * @param inputStream
-     * @return
-     */
-    private String dealResponseResult(InputStream inputStream) {
-        StringBuilder html = new StringBuilder();      //存储处理结果
-        try {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"UTF-8");
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String s;
-            while ((s = reader.readLine()) != null) {
-                html.append(s);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return html.toString();
     }
 
     /***
