@@ -35,6 +35,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -181,6 +182,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layout_car.setOnClickListener(this);
         layout_navigation.setOnClickListener(this);
         layout_menu.setOnClickListener(this);
+
+        textView_car_longitude.setText(String.valueOf(new BigDecimal(MainActivity.endPt.longitude)
+                .setScale(6,BigDecimal.ROUND_HALF_UP)
+                .doubleValue()));
+        textView_car_latitude.setText(String.valueOf(new BigDecimal(MainActivity.endPt.latitude)
+                .setScale(6,BigDecimal.ROUND_HALF_UP)
+                .doubleValue()));
     }
 
     /**
@@ -239,105 +247,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new MyLocationConfiguration(mLocationMode, true, bdStart);
         mBaiduMap.setMyLocationConfiguration(config);                   //地图显示定位图标
 
-        MarkerOptions  option_car = new MarkerOptions()
-                .position(endPt)
-                .icon(bdEnd);
-        //在地图上添加Marker，并显示
-        mEndMarker = (Marker) mBaiduMap.addOverlay(option_car);
-        mEndMarker.setDraggable(true);
-        mBaiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDrag(Marker marker) {
-
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-                endPt = marker.getPosition();
-            }
-
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-
-            }
-        });
-    }
-
-    /**
-     * 控件平移
-     */
-    public void translate(){
-        objectAnimator_translation_layout = ObjectAnimator.ofFloat(layout_car_message,
-                "translationY",
-                0.0f, (float) (ACTIVITY_Y * 0.30));
-        objectAnimator_translation_image = ObjectAnimator.ofFloat(imageView_map,
-                "translationY",
-                0.0f, (float) (ACTIVITY_Y * 0.30));
-        objectAnimator_translation_layout.setDuration(1000)
-                .start();
-        objectAnimator_translation_image.setDuration(1000)
-                .start();
-    }
-
-    /**
-     * 控件复位
-     */
-    public void translate_return(){
-        objectAnimator_translation_layout = ObjectAnimator.ofFloat(layout_car_message,
-                "translationY",
-                (float) (ACTIVITY_Y * 0.30), 0.0f);
-        objectAnimator_translation_image = ObjectAnimator.ofFloat(imageView_map,
-                "translationY",
-                (float) (ACTIVITY_Y * 0.30), 0.0f);
-        objectAnimator_translation_layout.setDuration(1000)
-                .start();
-        objectAnimator_translation_image.setDuration(1000)
-                .start();
-    }
-
-    /**
-     * 地图单击事件监听接口
-     */
-    BaiduMap.OnMapClickListener mapClickListenerListener = new BaiduMap.OnMapClickListener() {
-        /**
-         * 地图单击事件回调函数
-         * @param latLng    点击的地理坐标
-         */
-        @Override
-        public void onMapClick(LatLng latLng) {
-            if (BAIDUMAP_CLICK % 2 != 0){
-                translate();
-            }
-            else {
-                translate_return();
-            }
-            BAIDUMAP_CLICK ++;
-        }
-
-        /**
-         * 地图内 Poi 单击事件回调函数
-         * @param mapPoi    点击的 poi 信息
-         */
-        @Override
-        public void onMapPoiClick(MapPoi mapPoi) {
-
-        }
-    };
-
-    /**
-     * 获取手机界面像素
-     */
-    public void GetPixel(){
-        // 通过Activity类中的getWindowManager()方法获取窗口管理，再调用getDefaultDisplay()方法获取获取Display对象
-        Display display = getWindowManager().getDefaultDisplay();
-        //使用Point来保存屏幕宽、高两个数据
-        Point outSize = new Point();
-        // 通过Display对象获取屏幕宽、高数据并保存到Point对象中
-        display.getSize(outSize);
-        // 从Point对象中获取宽、高
-        ACTIVITY_X = outSize.x;
-        ACTIVITY_Y = outSize.y;
-        Log.d(TAG, "手机像素为：宽-" + ACTIVITY_X + "，高-" + ACTIVITY_Y);
     }
 
     /**
@@ -410,6 +319,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
+     * 地图单击事件监听接口
+     */
+    BaiduMap.OnMapClickListener mapClickListenerListener = new BaiduMap.OnMapClickListener() {
+        /**
+         * 地图单击事件回调函数
+         * @param latLng    点击的地理坐标
+         */
+        @Override
+        public void onMapClick(LatLng latLng) {
+            if (BAIDUMAP_CLICK % 2 != 0){
+                translate();
+            }
+            else {
+                translate_return();
+            }
+            BAIDUMAP_CLICK ++;
+        }
+
+        /**
+         * 地图内 Poi 单击事件回调函数
+         * @param mapPoi    点击的 poi 信息
+         */
+        @Override
+        public void onMapPoiClick(MapPoi mapPoi) {
+
+        }
+    };
+
+    /**
      * 点击事件监听
      * @param v
      */
@@ -442,17 +380,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mBaiduMap.setMapStatus(mMapStatusUpdate);
                 mBaiduMap.setBuildingsEnabled(true);
                 if(endPt != new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude)){
-                    mEndMarker.remove();
-                    endPt = new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude);
                     MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
                     mBaiduMap.animateMapStatus(u);
-                    MarkerOptions option_car = new MarkerOptions()
+                    OverlayOptions option_car = new MarkerOptions()
                             .position(endPt)
-                            .icon(bdEnd)
-                            .zIndex(5);
+                            .icon(bdEnd);
                     //在地图上添加Marker，并显示
-                    mEndMarker = (Marker) mBaiduMap.addOverlay(option_car);
-                    mEndMarker.setDraggable(true);
+                    mBaiduMap.addOverlay(option_car);
                 }else {
                     MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
                     mBaiduMap.animateMapStatus(u);
@@ -468,6 +402,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "Travel record opening");
                 break;
         }
+    }
+
+    /**
+     * 获取手机界面像素
+     */
+    public void GetPixel(){
+        // 通过Activity类中的getWindowManager()方法获取窗口管理，再调用getDefaultDisplay()方法获取获取Display对象
+        Display display = getWindowManager().getDefaultDisplay();
+        //使用Point来保存屏幕宽、高两个数据
+        Point outSize = new Point();
+        // 通过Display对象获取屏幕宽、高数据并保存到Point对象中
+        display.getSize(outSize);
+        // 从Point对象中获取宽、高
+        ACTIVITY_X = outSize.x;
+        ACTIVITY_Y = outSize.y;
+        Log.d(TAG, "手机像素为：宽-" + ACTIVITY_X + "，高-" + ACTIVITY_Y);
+    }
+
+    /**
+     * 控件平移
+     */
+    public void translate(){
+        objectAnimator_translation_layout = ObjectAnimator.ofFloat(layout_car_message,
+                "translationY",
+                0.0f, (float) (ACTIVITY_Y * 0.30));
+        objectAnimator_translation_image = ObjectAnimator.ofFloat(imageView_map,
+                "translationY",
+                0.0f, (float) (ACTIVITY_Y * 0.30));
+        objectAnimator_translation_layout.setDuration(1000)
+                .start();
+        objectAnimator_translation_image.setDuration(1000)
+                .start();
+    }
+
+    /**
+     * 控件复位
+     */
+    public void translate_return(){
+        objectAnimator_translation_layout = ObjectAnimator.ofFloat(layout_car_message,
+                "translationY",
+                (float) (ACTIVITY_Y * 0.30), 0.0f);
+        objectAnimator_translation_image = ObjectAnimator.ofFloat(imageView_map,
+                "translationY",
+                (float) (ACTIVITY_Y * 0.30), 0.0f);
+        objectAnimator_translation_layout.setDuration(1000)
+                .start();
+        objectAnimator_translation_image.setDuration(1000)
+                .start();
     }
 
     @Override
@@ -486,4 +468,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
 }

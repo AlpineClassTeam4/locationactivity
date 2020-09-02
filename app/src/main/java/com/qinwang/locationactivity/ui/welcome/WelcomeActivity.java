@@ -24,7 +24,9 @@ import com.qinwang.locationactivity.ui.gps.activity.MainActivity;
  * @function:欢迎界面接收其他APP数据
  */
 public class WelcomeActivity extends Activity {
+
     private final static int MSG_200 =200;
+    private boolean isFiest = true;
 
     private String Latitude;
     private String Longitude;
@@ -58,10 +60,10 @@ public class WelcomeActivity extends Activity {
             Latitude = bundle.getString("car_Latitude");
             Longitude = bundle.getString("car_Longitude");
             sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor  =sharedPreferences.edit();
+            SharedPreferences.Editor editor  = sharedPreferences.edit();
             editor.putString("car_Latitude", Latitude);
             editor.putString("car_Longitude",Longitude);
-            editor.apply();
+            editor.commit();
         }
         SharedPreferences latlng = getPreferences(Context.MODE_PRIVATE);
         MyApplication.car_Latitude = Double.parseDouble(latlng.getString("car_Latitude",""));

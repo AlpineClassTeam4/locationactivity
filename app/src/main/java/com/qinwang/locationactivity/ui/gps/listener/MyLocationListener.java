@@ -68,13 +68,6 @@ public class MyLocationListener extends BDAbstractLocationListener {
         MainActivity.textView_latitude.setText(String.valueOf(latitude));
         MainActivity.textView_longitude.setText(String.valueOf(longitude));
         MainActivity.startPt = new LatLng(latitude, longitude);
-
-        MainActivity.textView_car_longitude.setText(String.valueOf(new BigDecimal(MainActivity.endPt.longitude)
-                .setScale(6,BigDecimal.ROUND_HALF_UP)
-                .doubleValue()));
-        MainActivity.textView_car_latitude.setText(String.valueOf(new BigDecimal(MainActivity.endPt.latitude)
-                .setScale(6,BigDecimal.ROUND_HALF_UP)
-                .doubleValue()));
         //与车的距离四舍五入保留两位小数
         BigDecimal distance = new BigDecimal((DistanceUtil.getDistance(MainActivity.startPt,
                 MainActivity.endPt)) * Math.pow(10, -3));
