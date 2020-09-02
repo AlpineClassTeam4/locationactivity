@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,13 +60,19 @@ public class WelcomeActivity extends Activity {
         if (bundle != null){
             Latitude = bundle.getString("car_Latitude");
             Longitude = bundle.getString("car_Longitude");
-            sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor  = sharedPreferences.edit();
+            sharedPreferences = getSharedPreferences("Lalo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.putString("car_Latitude", Latitude);
             editor.putString("car_Longitude",Longitude);
             editor.commit();
         }
-        SharedPreferences latlng = getPreferences(Context.MODE_PRIVATE);
+//        if(bundle == null){
+//            Toast.makeText(WelcomeActivity.this,
+//                    "请先获取汽车位置信息",
+//            Toast.LENGTH_LONG).show();
+//            finish();
+//        }
+        SharedPreferences latlng = getSharedPreferences("Lalo", Context.MODE_PRIVATE);
         MyApplication.car_Latitude = Double.parseDouble(latlng.getString("car_Latitude",""));
         MyApplication.car_Longitude = Double.parseDouble(latlng.getString("car_Longitude",""));
         Log.d(TAG,"保存数据："+ MyApplication.car_Latitude + "," + MyApplication.car_Longitude);

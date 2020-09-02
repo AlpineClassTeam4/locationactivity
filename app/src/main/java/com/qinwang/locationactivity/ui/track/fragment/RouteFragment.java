@@ -60,13 +60,6 @@ public class RouteFragment extends Fragment {
         latLngs1.add(new LatLng(36.907587, 114.57393));
         latLngs1.add(new LatLng(36.907547, 114.57212));
         latLngs1.add(new LatLng(36.907587, 114.56944));
-        getView().findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.action_routeFragment_to_trackFragment);
-            }
-        });
 
         TrackData trackData = new TrackData("2020/9/1-10:20:10",
                 "2020/9/1-11:20:10",
