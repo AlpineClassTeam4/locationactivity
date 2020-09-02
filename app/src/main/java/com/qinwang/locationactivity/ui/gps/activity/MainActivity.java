@@ -253,13 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                double distance_la = new BigDecimal(marker.getPosition().latitude)
-                        .setScale(6,BigDecimal.ROUND_HALF_UP)
-                        .doubleValue();
-                double distance_lO = new BigDecimal(marker.getPosition().latitude)
-                        .setScale(6,BigDecimal.ROUND_HALF_UP)
-                        .doubleValue();
-                endPt = new LatLng(distance_la, distance_lO);
+                endPt = marker.getPosition();
             }
 
             @Override
