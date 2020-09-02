@@ -79,9 +79,6 @@ public class RouteFragment extends Fragment {
 //        trackDataList.clear();
 //        trackDataList.add(trackData);
         getData();
-        myAdapter = new MyAdapter(getView().getContext(), trackDataList);
-        listView.setAdapter(myAdapter);
-        ItemClick();
 
     }
 
@@ -143,6 +140,7 @@ public class RouteFragment extends Fragment {
                     Gson gson = new Gson();
                     LocatonBean locatonBean = gson.fromJson(msg.obj.toString(),
                             LocatonBean.class);
+                    trackDataList.clear();
                     for (int x = 0; x < locatonBean.getData().size() ; x++){
                         String[] ll = locatonBean.getData().get(x).getPoints().split(",");
                         List<LatLng> list = new ArrayList<>();
@@ -162,6 +160,9 @@ public class RouteFragment extends Fragment {
                                 list);
                         trackDataList.add(trackData);
                     }
+                    myAdapter = new MyAdapter(getView().getContext(), trackDataList);
+                    listView.setAdapter(myAdapter);
+                    ItemClick();
                     break;
                 case 2:
                     //出错
