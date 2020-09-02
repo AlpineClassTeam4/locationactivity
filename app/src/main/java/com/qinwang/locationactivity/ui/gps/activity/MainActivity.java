@@ -37,6 +37,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.baidu.mapapi.walknavi.WalkNavigateHelper;
 import com.baidu.mapapi.walknavi.adapter.IWEngineInitListener;
 import com.baidu.mapapi.walknavi.adapter.IWRoutePlanListener;
@@ -47,6 +48,8 @@ import com.qinwang.locationactivity.MyApplication;
 import com.qinwang.locationactivity.R;
 import com.qinwang.locationactivity.ui.gps.listener.MyLocationListener;
 import com.qinwang.locationactivity.ui.track.activity.RouteActivity;
+
+import java.math.BigDecimal;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -178,9 +181,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layout_car.setOnClickListener(this);
         layout_navigation.setOnClickListener(this);
         layout_menu.setOnClickListener(this);
-
-        textView_car_longitude.setText(String.valueOf(car_Longitude));
-        textView_car_latitude.setText(String.valueOf(car_Latitude));
     }
 
     /**
@@ -253,7 +253,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                endPt = marker.getPosition();
+                double distance_la = new BigDecimal(marker.getPosition().latitude)
+                        .setScale(6,BigDecimal.ROUND_HALF_UP)
+                        .doubleValue();
+                double distance_lO = new BigDecimal(marker.getPosition().latitude)
+                        .setScale(6,BigDecimal.ROUND_HALF_UP)
+                        .doubleValue();
+                endPt = new LatLng(distance_la, distance_lO);
             }
 
             @Override
@@ -261,7 +267,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
     }
 
     /**
