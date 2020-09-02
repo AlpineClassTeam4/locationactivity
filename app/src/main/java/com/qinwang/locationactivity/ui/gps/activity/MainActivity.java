@@ -44,6 +44,7 @@ import com.baidu.mapapi.walknavi.adapter.IWRoutePlanListener;
 import com.baidu.mapapi.walknavi.model.WalkRoutePlanError;
 import com.baidu.mapapi.walknavi.params.WalkNaviLaunchParam;
 import com.baidu.mapapi.walknavi.params.WalkRouteNodeInfo;
+import com.qinwang.locationactivity.MyApplication;
 import com.qinwang.locationactivity.R;
 import com.qinwang.locationactivity.ui.gps.listener.MyLocationListener;
 import com.qinwang.locationactivity.ui.track.activity.RouteActivity;
@@ -433,7 +434,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.layout_car:
-                Log.d(TAG, "The position of the car has been located");
+                endPt = new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude);
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
+                mBaiduMap.animateMapStatus(u);
+                OverlayOptions option_car = new MarkerOptions()
+                        .position(endPt)
+                        .icon(bdEnd)
+                        .zIndex(9);
+                //在地图上添加Marker，并显示
+                mBaiduMap.addOverlay(option_car);
                 break;
             case R.id.layout_navigation:
                 walkParam.extraNaviMode(0);

@@ -21,6 +21,9 @@ import java.io.InputStream;
  */
 public class MyApplication extends Application {
 
+    public static double car_Latitude = 38.897403;
+    public static double car_Longitude = 121.54351;
+
     public static String address = "北京";
     public static  String CUSTOM_FILE_NAME_HY = "custom_map_config_HY.sty";         //设置个性化地图的样式文件
     public static String customStyleFilePath;                                       //个性化地图的样式文件地址
