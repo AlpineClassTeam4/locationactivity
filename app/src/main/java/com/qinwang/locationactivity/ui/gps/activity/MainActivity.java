@@ -32,6 +32,7 @@ import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.OverlayOptions;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int BAIDUMAP_CLICK = 1;
 
     private int ACTIVITY_X, ACTIVITY_Y;                                 //Activity像素
+
+    private Marker mEndMarker;//导航起终点Marker，可拖动改变起终点的坐标
 
     public  static LatLng endPt;
     public  static LatLng startPt;
@@ -236,11 +239,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new MyLocationConfiguration(mLocationMode, true, bdStart);
         mBaiduMap.setMyLocationConfiguration(config);                   //地图显示定位图标
 
-        OverlayOptions option_car = new MarkerOptions()
+        MarkerOptions  option_car = new MarkerOptions()
                 .position(endPt)
                 .icon(bdEnd);
         //在地图上添加Marker，并显示
-        mBaiduMap.addOverlay(option_car);
+        mEndMarker = (Marker) mBaiduMap.addOverlay(option_car);
+        mEndMarker.setDraggable(true);
+        mBaiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                endPt = marker.getPosition();
+            }
+
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+
+            }
+        });
+
     }
 
     /**
