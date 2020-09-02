@@ -35,7 +35,6 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.walknavi.WalkNavigateHelper;
@@ -62,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public  static LatLng endPt;
     public  static LatLng startPt;
 
-    private static double car_Latitude = 38.897403;
-    private static double car_Longitude = 121.54351;
+    private static double car_Latitude = MyApplication.car_Latitude;
+    private static double car_Longitude = MyApplication.car_Longitude;
 
     public static TextView textView_longitude, textView_latitude, textView_address,
             textView_weather, textView_car_longitude, textView_car_latitude,
@@ -271,10 +270,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void translate(){
         objectAnimator_translation_layout = ObjectAnimator.ofFloat(layout_car_message,
                 "translationY",
-                0.0f, (float) (ACTIVITY_Y * 0.20));
+                0.0f, (float) (ACTIVITY_Y * 0.30));
         objectAnimator_translation_image = ObjectAnimator.ofFloat(imageView_map,
                 "translationY",
-                0.0f, (float) (ACTIVITY_Y * 0.20));
+                0.0f, (float) (ACTIVITY_Y * 0.30));
         objectAnimator_translation_layout.setDuration(1000)
                 .start();
         objectAnimator_translation_image.setDuration(1000)
@@ -287,10 +286,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void translate_return(){
         objectAnimator_translation_layout = ObjectAnimator.ofFloat(layout_car_message,
                 "translationY",
-                (float) (ACTIVITY_Y * 0.2), 0.0f);
+                (float) (ACTIVITY_Y * 0.30), 0.0f);
         objectAnimator_translation_image = ObjectAnimator.ofFloat(imageView_map,
                 "translationY",
-                (float) (ACTIVITY_Y * 0.20), 0.0f);
+                (float) (ACTIVITY_Y * 0.30), 0.0f);
         objectAnimator_translation_layout.setDuration(1000)
                 .start();
         objectAnimator_translation_image.setDuration(1000)
@@ -434,15 +433,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.layout_car:
-                endPt = new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude);
-                MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
-                mBaiduMap.animateMapStatus(u);
-                OverlayOptions option_car = new MarkerOptions()
-                        .position(endPt)
-                        .icon(bdEnd)
-                        .zIndex(9);
-                //在地图上添加Marker，并显示
-                mBaiduMap.addOverlay(option_car);
+                if(endPt != new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude)){
+                    mEndMarker.remove();
+                    endPt = new LatLng(MyApplication.car_Latitude, MyApplication.car_Longitude);
+                    MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
+                    mBaiduMap.animateMapStatus(u);
+                    MarkerOptions option_car = new MarkerOptions()
+                            .position(endPt)
+                            .icon(bdEnd)
+                            .zIndex(9);
+                    //在地图上添加Marker，并显示
+                    mEndMarker = (Marker) mBaiduMap.addOverlay(option_car);
+                    mEndMarker.setDraggable(true);
+                }else {
+                    MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
+                    mBaiduMap.animateMapStatus(u);
+                }
+
                 break;
             case R.id.layout_navigation:
                 walkParam.extraNaviMode(0);
