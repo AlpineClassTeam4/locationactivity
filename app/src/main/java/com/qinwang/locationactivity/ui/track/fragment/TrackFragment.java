@@ -33,6 +33,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.qinwang.locationactivity.MyApplication;
 import com.qinwang.locationactivity.R;
 import com.qinwang.locationactivity.dao.TrackData;
 import com.qinwang.locationactivity.ui.track.model.MyViewModel;
@@ -115,10 +116,10 @@ public class TrackFragment extends Fragment {
         track_mapView = getView().findViewById(R.id.track_map);
         BDMap = track_mapView.getMap();
 
-//        // 设置个性化地图样式文件的路径和加载方式
-//        track_mapView.setMapCustomStylePath(MyApplication.customStyleFilePath);
-//        //动态设置个性化地图样式是否生效
-//        track_mapView.setMapCustomStyleEnable(true);
+        // 设置个性化地图样式文件的路径和加载方式
+        track_mapView.setMapCustomStylePath(MyApplication.customStyleFilePath);
+        //动态设置个性化地图样式是否生效
+        track_mapView.setMapCustomStyleEnable(true);
         MapStatus mMapStatus = new MapStatus
                 .Builder()
                 .target(target)
