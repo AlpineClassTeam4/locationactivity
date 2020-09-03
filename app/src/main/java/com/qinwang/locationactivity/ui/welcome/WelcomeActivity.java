@@ -43,7 +43,6 @@ public class WelcomeActivity extends Activity {
                 case MSG_200 :
                     startActivity(new Intent(WelcomeActivity.this,
                             MainActivity.class));
-                    finish();
                     break;
                 default:
                     break;
