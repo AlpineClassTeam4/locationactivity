@@ -41,6 +41,7 @@ public class WelcomeActivity extends Activity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
                 case MSG_200 :
+                    finish();
                     startActivity(new Intent(WelcomeActivity.this,
                             MainActivity.class));
                     break;

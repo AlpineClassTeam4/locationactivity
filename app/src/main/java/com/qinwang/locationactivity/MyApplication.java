@@ -31,7 +31,7 @@ public class MyApplication extends Application {
     public static String customStyleFilePath;                                       //个性化地图的样式文件地址
     public static String uri = "http://wthrcdn.etouch.cn/weather_mini?city=";
 
-    public static String URI = "http://192.168.43.232/data/all";
+    public static String URI = "http://192.168.43.1/data/all";
     private static final String TAG = "MyApplication";
 
     @Override

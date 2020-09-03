@@ -1,6 +1,7 @@
 package com.qinwang.locationactivity.ui.gps.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -9,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -263,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         walkParam = new WalkNaviLaunchParam()
                 .startNodeInfo(walkStartNode)
                 .endNodeInfo(walkEndNode);
+        Log.d(TAG, "walk: " + endPt);
     }
 
     /**
@@ -394,6 +398,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(endPt);               //更新坐标位置
                     mBaiduMap.animateMapStatus(u);
                 }
+                Log.d(TAG, "walk: " + endPt);
                 break;
             case R.id.layout_navigation:
                 walkParam.extraNaviMode(0);
@@ -470,6 +475,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                AlertDialog.Builder build = new AlertDialog.Builder(this);
+                build.setTitle("系统提示").setMessage("确定要退出吗？");
+                build.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                build.setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).show();
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
