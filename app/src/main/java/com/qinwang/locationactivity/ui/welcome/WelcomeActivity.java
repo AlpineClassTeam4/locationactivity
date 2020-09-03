@@ -50,10 +50,17 @@ public class WelcomeActivity extends Activity {
         }
     };
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        sharedPreferences = getSharedPreferences("Lalo",Context.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
+        editor.putString("car_Latitude", "null");
+        editor.putString("car_Longitude","null");
+        editor.apply();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -62,19 +69,22 @@ public class WelcomeActivity extends Activity {
             String points[] = ll.split(",");
             Latitude = points[0];
             Longitude = points[1];
-            sharedPreferences = getSharedPreferences("Lalo",Context.MODE_PRIVATE);
-            editor=sharedPreferences.edit();
             editor.putString("car_Latitude", Latitude);
             editor.putString("car_Longitude",Longitude);
-            editor.apply();
-        }else {
-            SharedPreferences latlng = getSharedPreferences("Lalo", Context.MODE_PRIVATE);
-            MyApplication.car_Latitude = Double.parseDouble(latlng.getString("car_Latitude",null));
-            MyApplication.car_Longitude = Double.parseDouble(latlng.getString("car_Longitude",null));
-            Log.d(TAG,"保存数据："+ MyApplication.car_Latitude + "," + MyApplication.car_Longitude);
+            editor.commit();
         }
-
-        mHandler.sendEmptyMessageDelayed(MSG_200, 300);
+        if (sharedPreferences.getString("car_Latitude",null).equals("null") ||
+                sharedPreferences.getString("car_Longitude",null).equals("null")){
+            Toast.makeText(WelcomeActivity.this,
+                    "请先获取汽车位置信息",
+                    Toast.LENGTH_LONG);
+            finish();
+        }else {
+            MyApplication.car_Latitude = Double.parseDouble(sharedPreferences.getString("car_Latitude",null));
+            MyApplication.car_Longitude = Double.parseDouble(sharedPreferences.getString("car_Longitude",null));
+            Log.d(TAG,"保存数据："+ MyApplication.car_Latitude + "," + MyApplication.car_Longitude);
+            mHandler.sendEmptyMessageDelayed(MSG_200, 300);
+        }
     }
 
     @Override

@@ -28,7 +28,9 @@
         <activity android:name=".ui.welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <data
+                    android:host="MainActivity"
+                    android:scheme="com.alphine.team4.carlife"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
