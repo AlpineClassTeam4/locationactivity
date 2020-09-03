@@ -58,8 +58,10 @@ public class WelcomeActivity extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null){
-            Latitude = bundle.getString("car_Latitude");
-            Longitude = bundle.getString("car_Longitude");
+            String ll = bundle.getString("points");
+            String points[] = ll.split(",");
+            Latitude = points[0];
+            Longitude = points[1];
             sharedPreferences = getSharedPreferences("Lalo",Context.MODE_PRIVATE);
             editor=sharedPreferences.edit();
             editor.putString("car_Latitude", Latitude);
