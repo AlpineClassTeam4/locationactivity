@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+
         mBaiduMap.setMyLocationEnabled(true);
         if (Build.VERSION.SDK_INT >= 23) {
             int checkPermission = ContextCompat.checkSelfPermission(MainActivity.this,
